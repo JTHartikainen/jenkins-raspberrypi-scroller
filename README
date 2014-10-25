@@ -1,0 +1,23 @@
+
+Jenkins+Raspberry Pi LED Scroller (LDP-8008) Python script README
+
+Author: Jaakko Hartikainen (jaakko.hartikainen@gmail.com)
+=========================================================
+
+This is a custom set of Python modules to poll Jenkins CI server and display various bits of information
+on a hardware LED matrix display (build status, blame on build failure, last completed build time, etc.)
+
+The LDP-8008 matrix display font (fontv.py) and original control logic (ldp.py) written by Pete Goss (see http://www.embeddedadventures.com/Tutorials/tutorials_detail/184). The latter has been modified heavily for this project.
+
+Python libraries used:
+
+ - RPIO v0.10.0 (Python GPIO library for Raspberry Pi) http://pythonhosted.org/RPIO/
+ - Python-Requests v2.4.3 (for simplified REST queries and JSON parsing)
+
+Source code resides in /src folder, and datasheet for the display and other documentation can be found in /doc.
+
+Hardware and assembly details are explained at my blog:
+
+http://jhtechblog00.blogspot.fi/2014/07/raspberry-pi-model-b-driven-led.html
+
+Currently in alpha stage.
