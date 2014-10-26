@@ -1,7 +1,7 @@
 
 Jenkins+Raspberry Pi LED Scroller (LDP-8008) Python script README
 
-Author: Jaakko Hartikainen (jaakko.hartikainen@gmail.com)
+Author: Jaakko Hartikainen (jaakko dot hartikainen at gmail dot com)
 =========================================================
 
 This is a custom set of Python modules to poll Jenkins CI server and display various bits of information
