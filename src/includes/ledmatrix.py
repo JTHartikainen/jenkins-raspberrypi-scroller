@@ -7,6 +7,7 @@
 
 import sys
 import time
+import logging
 
 # Modify this import row to change font!
 import fontv as fontv
@@ -14,6 +15,10 @@ import fontv as fontv
 import RPi.GPIO as gpio
 gpio.setwarnings(False)
 gpio.setmode(gpio.BOARD)
+
+# Initialize the global logger
+
+logger = logging.getLogger(LOGGERNAME)
 
 ###################################################
 # Give the GPIO pins labels that match the LDP-8008
@@ -245,11 +250,17 @@ def showmatrix():
 # Methods for actually operating the screen start here 
 
 def initledmatrix():
+	if (DEBUGMODE == "true"):
+		logger.debug("Doing nothing, debug mode is on")
+		return 0
 	init_gpio()
 # end def
 
 def scroll(message, colour, repeats):
-	
+	if (DEBUGMODE == "true"):
+		logger.debug("[LED SCROLL] message: " + message + ", colour: " + colour + ", repeats: " + repeats)
+		return 0
+
 	# textinput=str("Placeholder for testing Python code 1234567890")
 	textinput=message
 	colour=int(colour)

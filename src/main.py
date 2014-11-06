@@ -6,22 +6,19 @@
 
 import logging
 import datetime
+from cfg import config
 from includes import jenkinsclient
-
-# Options
-
-LOGPATH = "log.txt"
 
 # Initialize logging
 
-logger = logging.getLogger("jenkinsledscroller")
+logger = logging.getLogger(LOGGERNAME)
 hdlr = logging.FileHandler(str(LOGPATH))
 formatter = logging.Formatter("%(asctime)s %(module)s %(levelname)s - %(message)s")
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
-# Quick test snippet
+# Output success text
 
 logger.info("Jenkins LED Scroller started!")
 

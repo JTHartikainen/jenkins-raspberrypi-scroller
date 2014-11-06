@@ -8,28 +8,9 @@ import logging
 import requests
 import ledmatrix as ledmatrix
 
-# Create basic attributes
-JENKINS_ROOT="/jenkins"
+# Get the global logger object
 
-# Jenkins hostname and authentication details. Use localhost as hostname if Jenkins is running on the same  system.
-#
-# Replace the JENKINS_USER and JENKINS_PASSWORD default values with the ones available from Jenkins User accounts - manager (API keys)
-
-JENKINS_HOST="http://host:8080"
-JENKINS_USER="jenkins"
-JENKINS_PASSWORD="abcdefghiklmno"
-
-# Polling frequency in seconds
-POLL_INTERVAL=5
-
-# Task names to poll
-TASK_NAMES=["Test-Task-1","Test-Task-2"]
-
-# Scroll speed in milliseconds
-
-SCROLL_SPEED=1000
-
-logger = logging.getLogger("jenkinsledscroller")
+logger = logging.getLogger(LOGGERNAME)
 
 class JenkinsClient(): 
 
@@ -52,7 +33,9 @@ class JenkinsClient():
 			ledmatrix.initledmatrix()
 			logger.info("LED matrix hardware init OK!")
 			message = "Last completed build data: " + str(lastBuildData)
+			logger.info("Sending message to LED screen...")
 			ledmatrix.scroll(message, 2, 5)
+			logger.info("Scrolled message successfully ( " + message)
 		except requests.exceptions.RequestException as e:
 			logger.error("Cannot request last build data: " + str(e))
 
@@ -68,6 +51,7 @@ class JenkinsClient():
 			logger.info("LED matrix hardware init OK!")
 			displayName = r.json().get("displayName")
 			message = "Build polling active for task: " + str(displayName)
+			logger.info("Sending message to LED screen...")
 			ledmatrix.scroll(message, 2, 5)
 			logger.info("Scrolled message successfully ( " + message)
 		except requests.exceptions.RequestException as e:
