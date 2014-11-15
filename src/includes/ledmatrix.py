@@ -1,24 +1,20 @@
 #
 # ledmatrix.py - Custom LED Matrix Controller 
 #
-# Author: Jaakko Hartikainen (jaakko.hartikainen@gmail.com)
+# Author: Jaakko Hartikainen (jaakko dot hartikainen at gmail dot com )
 #
 # Based on Pete Goss's original code (see http://www.embeddedadventures.com/Tutorials/tutorials_detail/184 )  
 
 import sys
 import time
-import logging
 
 # Modify this import row to change font!
-import fontv as fontv
+from . import fontv
 
 import RPi.GPIO as gpio
 gpio.setwarnings(False)
 gpio.setmode(gpio.BOARD)
 
-# Initialize the global logger
-
-logger = logging.getLogger(LOGGERNAME)
 
 ###################################################
 # Give the GPIO pins labels that match the LDP-8008
@@ -250,16 +246,10 @@ def showmatrix():
 # Methods for actually operating the screen start here 
 
 def initledmatrix():
-	if (DEBUGMODE == "true"):
-		logger.debug("Doing nothing, debug mode is on")
-		return 0
 	init_gpio()
 # end def
 
 def scroll(message, colour, repeats):
-	if (DEBUGMODE == "true"):
-		logger.debug("[LED SCROLL] message: " + message + ", colour: " + colour + ", repeats: " + repeats)
-		return 0
 
 	# textinput=str("Placeholder for testing Python code 1234567890")
 	textinput=message

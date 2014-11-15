@@ -1,8 +1,11 @@
 #
 # config.py - Configuration file for JenkinsLEDScroller
 #
+# Global application name 
+APPNAME = "Jenkins LED Scroller"
+AUTHORNAME = "jhartika (jaakko dot hartikainen at gmail dot com)"
 #
-# Logging options
+# Logging options"
 LOGPATH = "log.txt"
 LOGGERNAME = "jenkinsledscroller"
 
@@ -16,7 +19,7 @@ DEBUGMODE = "true"
 JENKINS_ROOT="/jenkins"
 JENKINS_HOST="http://host:8080"
 JENKINS_USER="jenkins"
-JENKINS_PASSWORD="abcdefghiklmno"
+JENKINS_PASSWORD="abc"
 
 # Polling frequency in seconds
 POLL_INTERVAL=5
@@ -26,3 +29,7 @@ TASK_NAMES=["Test-Task-1","Test-Task-2"]
 
 # Scroll speed in milliseconds
 SCROLL_SPEED=1000
+
+COLOR_RED=1
+COLOR_GREEN=2
+COLOR_ORANGE=3

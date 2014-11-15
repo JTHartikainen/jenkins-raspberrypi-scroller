@@ -1,32 +1,25 @@
 #
 # main.py - Main file for Jenkins+Raspberry Pi LED Matrix Scroller
 #
-# Author: Jaakko Hartikainen (jaakko.hartikainen@gmail.com)
+# Author: Jaakko Hartikainen (jaakko dot hartikainen at gmail dot com )
 #
-
 import logging
 import datetime
 from cfg import config
+from includes import loggerhelper
 from includes import jenkinsclient
 
-# Initialize logging
+# Create loggerhelper
 
-logger = logging.getLogger(LOGGERNAME)
-hdlr = logging.FileHandler(str(LOGPATH))
-formatter = logging.Formatter("%(asctime)s %(module)s %(levelname)s - %(message)s")
-hdlr.setFormatter(formatter)
-logger.addHandler(hdlr) 
-logger.setLevel(logging.DEBUG)
-
-# Output success text
-
-logger.info("Jenkins LED Scroller started!")
+logger = loggerhelper.create_custom_logger(config, config.LOGGERNAME, logging.DEBUG)
+logger.info("Logging setup successful.")
 
 # Create new Jenkins Client instance and run a method to simply verify functionality
 
-jenkins = jenkinsclient.JenkinsClient()
+logger.info(config.APPNAME + " starting up...")
+jenkins = jenkinsclient.JenkinsClient(config)
 logger.info( jenkins.showsettings() )
-jenkins.displayname()
+jenkins.display_tasks_to_poll()
 logger.info("Jenkins LED Scroller stopping!")
 logging.shutdown()
 
