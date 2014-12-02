@@ -19,7 +19,7 @@ DEBUGMODE = "true"
 JENKINS_ROOT="/jenkins"
 JENKINS_HOST="http://host:8080"
 JENKINS_USER="jenkins"
-JENKINS_PASSWORD="abc"
+JENKINS_PASSWORD="password"
 
 # Polling frequency in seconds
 POLL_INTERVAL=5
