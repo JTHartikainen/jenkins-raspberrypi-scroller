@@ -1,26 +1,56 @@
 #
-# main.py - Main file for Jenkins+Raspberry Pi LED Matrix Scroller
+# main.py - Main file for LED scrolling REST listener
 #
 # Author: Jaakko Hartikainen (jaakko dot hartikainen at gmail dot com )
 #
 import logging
 import datetime
+import requests
+import time
+import string
+import cherrypy
+
 from cfg import config
 from includes import loggerhelper
-from includes import jenkinsclient
 
-# Create loggerhelper
+# RP
+#from includes import ledmatrix as ledmatrix
+
+# Debug
+from includes import ledmatrix_dummy as ledmatrix
 
 logger = loggerhelper.create_custom_logger(config, config.LOGGERNAME, logging.DEBUG)
-logger.info("Logging setup successful.")
 
-# Create new Jenkins Client instance and run a method to simply verify functionality
+class LedWebService(object):
+     exposed = True
 
-logger.info(config.APPNAME + " starting up...")
-jenkins = jenkinsclient.JenkinsClient(config)
-logger.info( jenkins.showsettings() )
-#jenkins.display_tasks_to_poll()
-jenkins.poll_tasks()
-logger.info("Jenkins LED Scroller stopping!")
-logging.shutdown()
+     @cherrypy.tools.accept(media='text/plain')
+     def GET(self, color=1, text='foo', repeats=5):
+         logger.info("GET invoked with parameters color: " + color + ", text: " + text)
+         ledmatrix.scroll(text, color, repeats)
 
+     def POST(self, length=8):
+         logger.info("POST invoked")
+
+     def PUT(self, another_string):
+         logger.info("PUT invoked")
+
+     def DELETE(self):
+         logger.info("DELETE invoked")
+
+
+if __name__ == '__main__':
+    conf = {
+        '/': {
+            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
+            'tools.sessions.on': True,
+            'tools.response_headers.on': True,
+            'tools.response_headers.headers': [('Content-Type', 'text/plain')],
+        }
+    }
+    cherrypy.server.socket_host = '0.0.0.0'
+    cherrypy.quickstart(LedWebService(), '/', conf)
+
+    logger.info("Logging setup successful.")
+    ledmatrix.initledmatrix()
+    logger.info("LED matrix initialized")
